@@ -6,6 +6,7 @@ use Cloudflare\API\Auth\APIKey as Key;
 use Illuminate\Support\Traits\Macroable;
 use GuzzleHttp\Exception\ClientException;
 use Cloudflare\API\Endpoints\DNS as CF_DNS;
+use Cloudflare\API\Endpoints\DNSAnalytics as CF_DNSAnalytics;
 use Cloudflare\API\Endpoints\IPs as CF_IPs;
 use Cloudflare\API\Adapter\Guzzle as Adapter;
 
@@ -16,6 +17,7 @@ class Cloudflare
     protected $zone;
     protected $dns;
     protected $ips;
+    protected $analytics;
 
     public function __construct($email, $api, $zone)
     {
@@ -24,6 +26,7 @@ class Cloudflare
         $this->zone = $zone;
         $this->dns = new CF_DNS($adapter);
         $this->ips = new CF_IPs($adapter);
+        $this->analytics = new CF_DNSAnalytics($adapter);
     }
 
     /*
@@ -74,5 +77,15 @@ class Cloudflare
     public function listIPs()
     {
         return $this->ips->listIPs();
+    }
+
+    /**
+     * DNS Analytics table
+     *
+     * @return \stdClass
+     */
+    public function getReportTable(array $dimensions, array $metrics, array $sort, string $filters, string $since, string $until, int $limit = 100): \stdClass
+    {
+        return $this->analytics->getReportTable($this->zone, $dimensions, $metrics, $sort, $filters, $since, $until, $limit);
     }
 }

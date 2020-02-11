@@ -18,7 +18,7 @@
   ],
   "require": {
     "php": "^7.0",
-    "cloudflare/sdk": "^1.0",
+    "cloudflare/sdk": "dev-dns-analytics-report",
     "illuminate/contracts": "^5.0"
   },
   "require-dev": {
@@ -34,7 +34,7 @@
   },
   "extra": {
     "laravel": {
-      "aliases":{
+      "aliases": {
         "Cloudflare": "Novalis\\Cloudflare\\CloudflareFacade"
       },
       "providers": [
