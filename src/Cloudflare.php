@@ -8,6 +8,7 @@ use GuzzleHttp\Exception\ClientException;
 use Cloudflare\API\Endpoints\DNS as CF_DNS;
 use Cloudflare\API\Endpoints\DNSAnalytics as CF_DNSAnalytics;
 use Cloudflare\API\Endpoints\IPs as CF_IPs;
+use Cloudflare\API\Endpoints\Zones as CF_ZONES;
 use Cloudflare\API\Adapter\Guzzle as Adapter;
 
 class Cloudflare
@@ -18,6 +19,7 @@ class Cloudflare
     protected $dns;
     protected $ips;
     protected $analytics;
+    protected $zones;
 
     public function __construct($email, $api, $zone)
     {
@@ -26,6 +28,7 @@ class Cloudflare
         $this->zone = $zone;
         $this->dns = new CF_DNS($adapter);
         $this->ips = new CF_IPs($adapter);
+        $this->zones = new CF_ZONES($adapter);
         $this->analytics = new CF_DNSAnalytics($adapter);
     }
 
@@ -87,5 +90,14 @@ class Cloudflare
     public function getReportTable(array $dimensions, array $metrics, array $sort, string $filters, string $since, string $until, int $limit = 100): \stdClass
     {
         return $this->analytics->getReportTable($this->zone, $dimensions, $metrics, $sort, $filters, $since, $until, $limit);
+    }
+
+    /**
+     * Zone name
+     *
+     * @return array
+     */
+    public function getZone(): \stdClass {
+        return $this->zones->getZoneById($this->zone)->result;
     }
 }
