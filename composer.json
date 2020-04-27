@@ -19,7 +19,7 @@
   "require": {
     "php": "^7.0",
     "cloudflare/sdk": "dev-dns-analytics-report",
-    "illuminate/contracts": "^5.0"
+    "illuminate/contracts": "^7.8"
   },
   "require-dev": {
     "phpunit/phpunit": "^6.1"
