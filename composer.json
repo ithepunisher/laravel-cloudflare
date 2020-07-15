@@ -18,7 +18,7 @@
   ],
   "require": {
     "php": "^7.0",
-    "cloudflare/sdk": "dev-dns-analytics-report",
+    "cloudflare/sdk": "^1.0",
     "illuminate/contracts": "^7.8"
   },
   "require-dev": {
